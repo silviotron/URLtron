@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}URLtron - Show URL{% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>Show URL</h1>
+        </div>
+    </div>
+
+    <div class="row gx-4 gx-lg-5">
+        <div class="col-md-6 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <button class="btn btn-primary ml-3"
+                            onclick="navigator.clipboard.writeText('http://{{ request.META.HTTP_HOST }}/{{ link.key }}')">
+                        <i class="bi bi-copy"></i>
+                    </button>
+                    <span class="mb-0 mr-2">Short URL:</span>
+                    <a class=""
+                       href="http://{{ request.META.HTTP_HOST }}/{{ link.key }}">
+                        {{ request.META.HTTP_HOST }}/{{ link.key }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <button class="btn btn-primary ml-3"
+                            onclick="navigator.clipboard.writeText('{{ link.url }}')">
+                        <i class="bi bi-copy"></i>
+                    </button>
+                    <span class="mb-0 mr-2">Redirect URL:</span>
+                    <a class="text-decoration-none"
+                       href="{{ link.url }}">
+                        {{ link.url }}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+{% endblock %}

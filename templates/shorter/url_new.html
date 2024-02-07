@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}URLtron - Create URL{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>Create URL</h1>
+        </div>
+    </div>
+
+<div class="row gx-4 gx-lg-5">
+    <div class="col-md-12 mb-3">
+        <div class="card h-100">
+            <form action="{% url 'url_new' %}" method="post">
+                {% csrf_token %}
+                <div class="card-body d-flex align-items-center">
+                    <div class="input-group">
+                        <span class="input-group-text">URL</span>
+                        <input type="text" class="form-control {% if error_message %}is-invalid{% endif %}"
+                               placeholder="www.example.com" aria-label="URL"
+                               id="url" name="url" value="{{ url }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary ms-3">Generate</button>
+                </div>
+            </form>
+            {% if error_message %}
+                <div class="card-footer">
+                    <div class="invalid-feedback" style="display: block;">
+                        {{ error_message }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
