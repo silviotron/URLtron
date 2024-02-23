@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Show URLS
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>Show URLS</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Key</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for i in urls %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ i.key }}</td>
+                            <td>{{ i.created_at }}</td>
+                            <td>{{ i.url }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
