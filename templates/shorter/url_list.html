@@ -25,13 +25,15 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    {% load tz %}
                     {% for i in urls %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ i.key }}</td>
-                            <td>{{ i.created_at }}</td>
+                            <td>{{ request.META.HTTP_HOST }}"/"{{ i.key }}</td>
+                            <td>{{ i.created_at|timezone:request.COOKIES.django_timezone|default_if_none:i.created_at }}</td>
                             <td>{{ i.url }}</td>
+                            <td>{{ request.META.REMOTE_ADDR }}</td>
+
                         </tr>
                     {% endfor %}
 

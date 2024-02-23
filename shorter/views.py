@@ -3,6 +3,7 @@ from .models import Link
 import validators
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import logging
 
 # Create your views here.
 
@@ -11,7 +12,11 @@ def url_new(request):
     if request.method == 'POST':
         url = request.POST.get('url')
         if validators.url(url):
-            link = Link.objects.create(url=url, user=request.user)
+            if request.user.is_authenticated:
+                link = Link.objects.create(url=url, user=request.user)
+            else:
+                link = Link.objects.create(url=url)
+
             return redirect('url_success', key=link.key)
         else:
             messages.error(request, 'Invalid URL')
@@ -38,5 +43,6 @@ def url_redirect(request, key):
 
 @login_required(login_url='login')
 def url_list(request):
+    print(request.META)
     urls = Link.objects.filter(user=request.user)
     return render(request, 'shorter/url_list.html', {'urls': urls})
